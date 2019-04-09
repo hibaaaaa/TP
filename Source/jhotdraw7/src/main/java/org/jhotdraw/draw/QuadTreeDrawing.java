@@ -18,6 +18,7 @@ import org.jhotdraw.util.*;
 import java.util.*;
 import org.jhotdraw.geom.Geom;
 import static org.jhotdraw.draw.AttributeKeys.*;
+import org.jhotdraw.draw.action.Proposal;
 
 /**
  * An implementation of {@link Drawing} which uses a
@@ -31,7 +32,11 @@ public class QuadTreeDrawing extends AbstractDrawing {
 
     private QuadTree<Figure> quadTree = new QuadTree<Figure>();
     private boolean needsSorting = false;
-
+    
+    public void present(Proposal proposal, State state) {
+        
+    }
+    
     @Override
     public int indexOf(Figure figure) {
         return children.indexOf(figure);
@@ -246,20 +251,20 @@ public class QuadTreeDrawing extends AbstractDrawing {
     }
 
     @Override
-    public void bringToFront(Figure figure) {
-        if (children.remove(figure)) {
-            children.add(figure);
+    public void bringToFront(Proposal proposal, State state) {
+        if (children.remove(proposal.figure)) {
+            children.add(proposal.figure);
             needsSorting = true;
-            fireAreaInvalidated(figure.getDrawingArea());
+            fireAreaInvalidated(proposal.figure.getDrawingArea());
         }
     }
 
     @Override
-    public void sendToBack(Figure figure) {
-        if (children.remove(figure)) {
-            children.add(0, figure);
+    public void sendToBack(Proposal proposal, State state) {
+        if (children.remove(proposal.figure)) {
+            children.add(0, proposal.figure);
             needsSorting = true;
-            fireAreaInvalidated(figure.getDrawingArea());
+            fireAreaInvalidated(proposal.figure.getDrawingArea());
         }
     }
 

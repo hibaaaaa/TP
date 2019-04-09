@@ -16,6 +16,7 @@ import org.jhotdraw.util.*;
 import java.util.*;
 import org.jhotdraw.geom.Geom;
 import static org.jhotdraw.draw.AttributeKeys.*;
+import org.jhotdraw.draw.action.Proposal;
 
 /**
  * A default implementation of {@link Drawing} useful for drawings which
@@ -260,4 +261,13 @@ public class DefaultDrawing
             }
         }
     }
+
+    @Override
+    public void sendToBack(Proposal proposal, State state) {}
+
+    @Override
+    public void bringToFront(Proposal proposal, State state) {}
+
+    @Override
+    public void present(Proposal proposal, State state) {}
 }
