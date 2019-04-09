@@ -42,7 +42,7 @@ public class BringToFrontAction extends AbstractSelectedAction {
         Iterator i = drawing.sort(figures).iterator();
         while (i.hasNext()) {
             Figure figure = (Figure) i.next();
-            drawing.bringToFront(new Proposal(figure), state);
+            drawing.bringToFront(new Proposal(figure, "BringToFront"), state);
         }
     }
 }

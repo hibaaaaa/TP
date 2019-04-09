@@ -34,7 +34,13 @@ public class QuadTreeDrawing extends AbstractDrawing {
     private boolean needsSorting = false;
     
     public void present(Proposal proposal, State state) {
-        
+        //A better alternative would be implementing the following block via the Command pattern
+        switch(proposal.getActionName()) {
+            case "BringToFront": this.bringToFront(proposal.figure); break;
+            case "SendToBack": this.sendToBack(proposal.figure); break;
+            //The rest of the available actions should be implemented here
+            default: return;
+        }
     }
     
     @Override

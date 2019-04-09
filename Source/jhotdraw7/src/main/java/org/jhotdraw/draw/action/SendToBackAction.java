@@ -42,7 +42,7 @@ public class SendToBackAction extends AbstractSelectedAction {
         Drawing drawing = view.getDrawing();
         while (i.hasNext()) {
             Figure figure = (Figure) i.next();
-            drawing.sendToBack(new Proposal(figure), state);
+            drawing.sendToBack(new Proposal(figure, "SendToBack"), state);
         }
     }
 }
