@@ -22,6 +22,7 @@ import java.util.*;
 import javax.swing.undo.*;
 import javax.swing.event.*;
 import java.io.*;
+import org.jhotdraw.draw.action.Proposal;
 
 /**
  * A <em>drawing</em> is a container for {@link Figure}s. A drawing can hold
@@ -82,7 +83,7 @@ import java.io.*;
  * @author Werner Randelshofer
  * @version $Id: Drawing.java 717 2010-11-21 12:30:57Z rawcoder $
  */
-public interface Drawing extends CompositeFigure, Serializable, DOMStorable {
+public interface Drawing extends CompositeFigure, Serializable, DOMStorable, ModelFacade {
 
     /** Draws on the <em>canvas area</em>. The canvas is the background area
      * onto which the drawing is drawn.
@@ -291,14 +292,14 @@ public interface Drawing extends CompositeFigure, Serializable, DOMStorable {
      *
      * @param figure that is part of the drawing
      */
-    void sendToBack(Figure figure);
+    void sendToBack(Proposal proposal, State state);
 
     /**
      * Brings a figure to the front.
      *
      * @param figure that is part of the drawing
      */
-    void bringToFront(Figure figure);
+    void bringToFront(Proposal proposal, State state);
 
     /**
      * Returns a copy of the provided collection which is sorted

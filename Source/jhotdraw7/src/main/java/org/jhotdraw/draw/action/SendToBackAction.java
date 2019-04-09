@@ -35,39 +35,14 @@ public class SendToBackAction extends AbstractSelectedAction {
     }
 
     @Override
-    public void actionPerformed(java.awt.event.ActionEvent e) {
-        final DrawingView view = getView();
-        final LinkedList<Figure> figures = new LinkedList<Figure>(view.getSelectedFigures());
-        sendToBack(view, figures);
-        fireUndoableEditHappened(new AbstractUndoableEdit() {
+    public void actionPerformed(java.awt.event.ActionEvent e) {}
 
-            @Override
-            public String getPresentationName() {
-                ResourceBundleUtil labels =
-                        ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                return labels.getTextProperty(ID);
-            }
-
-            @Override
-            public void redo() throws CannotRedoException {
-                super.redo();
-                SendToBackAction.sendToBack(view, figures);
-            }
-
-            @Override
-            public void undo() throws CannotUndoException {
-                super.undo();
-                BringToFrontAction.bringToFront(view, figures);
-            }
-        });
-    }
-
-    public static void sendToBack(DrawingView view, Collection figures) {
+    public static void sendToBack(DrawingView view, Collection figures, State state) {
         Iterator i = figures.iterator();
         Drawing drawing = view.getDrawing();
         while (i.hasNext()) {
             Figure figure = (Figure) i.next();
-            drawing.sendToBack(figure);
+            drawing.sendToBack(new Proposal(figure), state);
         }
     }
 }
