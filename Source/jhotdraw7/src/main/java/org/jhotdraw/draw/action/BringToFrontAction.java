@@ -35,7 +35,32 @@ public class BringToFrontAction extends AbstractSelectedAction {
     }
 
     @Override
-    public void actionPerformed(java.awt.event.ActionEvent e) {}
+    public void actionPerformed(java.awt.event.ActionEvent e) {
+    final DrawingView view = getView();
+        final LinkedList<Figure> figures = new LinkedList<Figure>(view.getSelectedFigures());
+        bringToFront(view, figures, null);
+        fireUndoableEditHappened(new AbstractUndoableEdit() {
+
+            @Override
+            public String getPresentationName() {
+                ResourceBundleUtil labels =
+                        ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                return labels.getTextProperty(ID);
+            }
+
+            @Override
+            public void redo() throws CannotRedoException {
+                super.redo();
+                BringToFrontAction.bringToFront(view, figures, null);
+            }
+
+            @Override
+            public void undo() throws CannotUndoException {
+                super.undo();
+                SendToBackAction.sendToBack(view, figures, null);
+            }
+        });
+    }
 
     public static void bringToFront(DrawingView view, Collection<Figure> figures, State state) {
         Drawing drawing = view.getDrawing();
